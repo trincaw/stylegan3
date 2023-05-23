@@ -1,11 +1,9 @@
 
-#------------ Dataset preparation
+#------------ 256x256 Train process
 
-python dataset_tool.py --source /home/nicolo/Documents/Replay/GAN/stylegan3/input/ --dest /home/nicolo/Documents/Replay/GAN/stylegan3/output/dataset.zip --resolution=512x512
+python dataset_tool.py --source /home/ntrinca/converted_img --dest /home/ntrinca/dataset.zip --resolution=256x256
 
-#------------ Train StyleGAN3-T
-python train.py --data=/home/nicoloxtrinca/datasets/dataset.zip --outdir=/home/nicoloxtrinca/training-runs --workers=2 --cfg=stylegan3-t --gpus=1 --batch=32 --gamma=8 --batch-gpu=4 --snap=5 --mirror=1
-
+python train.py --data=/home/ntrinca/dataset.zip --outdir=/home/ntrinca/training-runs --cfg=stylegan3-t --gpus=1 --batch=32 --gamma=2 --batch-gpu=16 --snap=10 --mirror=1 --workers=2 
 
 # Generate an image using pre-trained model
 
