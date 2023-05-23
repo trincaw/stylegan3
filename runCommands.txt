@@ -3,14 +3,14 @@
 
 python dataset_tool.py --source /home/ntrinca/converted_img --dest /home/ntrinca/dataset.zip --resolution=256x256
 
-python train.py --data=/home/ntrinca/dataset.zip --outdir=/home/ntrinca/rainingt-runs --cfg=stylegan3-t --gpus=1 --batch=32 --gamma=2 --batch-gpu=16 --snap=10 --mirror=1 --workers=1 --metrics=none
+python train.py --data=/home/ntrinca/dataset.zip --outdir=/home/ntrinca/training-runs --cfg=stylegan3-t --gpus=1 --batch=32 --gamma=2 --batch-gpu=16 --snap=10 --mirror=1 --workers=1 --metrics=none
 
-python train.py --data=/home/ntrinca/dataset.zip --outdir=/home/ntrinca/rainingt-runs --cfg=stylegan2 --gpus=1 --batch=16 --gamma=0.8192 --map-depth=2 --glr=0.0025 --dlr=0.0025 --cbase=16384
+python train.py --data=/home/ntrinca/dataset.zip --outdir=/home/ntrinca/training-runs --cfg=stylegan2 --gpus=1 --batch=16 --gamma=0.8192 --map-depth=2 --glr=0.0025 --dlr=0.0025 --cbase=16384
 
 # Generate an image using pre-trained model
 
-python gen_images.py  --outdir=/home/nicolo/Documents/Replay/GAN/stylegan3/fakes --trunc=1 --seeds=2 \
-    --network=/home/nicolo/Documents/Replay/GAN/stylegan3/trained/training-runs/00001-stylegan3-t-dataset-gpus1-batch32-gamma32/network-snapshot-000000.pkl
+python gen_images.py  --outdir=/home/ntrinca/fakes --trunc=1 --seeds=2 \
+    --network=/home/ntrinca/rainingt-runs/00001-stylegan2-dataset-gpus1-batch16-gamma0.8192/network-snapshot-000000.pkl
 
 # Render a 4x2 grid of interpolations for seeds 0 through 31
 
