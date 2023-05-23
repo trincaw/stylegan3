@@ -1,10 +1,7 @@
-#pip install pillow
-
 import os
 from PIL import Image
 
-def convert_images(input_folder):
-    output_folder = input_folder + "_converted"
+def convert_images(input_folder, output_folder):
     os.makedirs(output_folder, exist_ok=True)
 
     for filename in os.listdir(input_folder):
@@ -23,5 +20,6 @@ def convert_images(input_folder):
     print("Conversion completed.")
 
 # Example usage:
-input_path = "/path/to/input/folder"
-convert_images(input_path)
+input_path = "/home/ntrinca/img"
+output_path = "/home/ntrinca/converted_img"
+convert_images(input_path, output_path)
