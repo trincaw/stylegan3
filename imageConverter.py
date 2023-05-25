@@ -20,6 +20,6 @@ def convert_images(input_folder, output_folder):
     print("Conversion completed.")
 
 # Example usage:
-input_path = "/home/ntrinca/img"
-output_path = "/home/ntrinca/converted_img"
+input_path = "/home/nicoloxtrinca/img"
+output_path = "/home/nicoloxtrinca/converted_img"
 convert_images(input_path, output_path)
