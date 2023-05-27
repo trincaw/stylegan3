@@ -6,12 +6,12 @@ python dataset_tool.py --source /home/ntrinca/converted_img --dest /home/ntrinca
 python train.py --data=/home/ntrinca/dataset.zip --outdir=/home/ntrinca/training-runs --cfg=stylegan3-t --gpus=1 --batch=32 --gamma=2 --batch-gpu=16 --snap=10 --mirror=1 --workers=1 --metrics=none
 
 python train.py --data=/home/ntrinca/dataset.zip --outdir=/home/ntrinca/training-runs --cfg=stylegan2 --gpus=1 --batch=16 --gamma=0.8192 --map-depth=2 --glr=0.0025 --dlr=0.0025 --cbase=16384
-
+disown 4427
 #------------ 512x512 Train process
+htop
+ python dataset_tool.py --source /home/nicoloxtrinca/converted_img/ --dest /home/nicoloxtrinca/dataset512.zip --resolution=512x512
 
-python dataset_tool.py --source /home/nicoloxtrinca/img --dest /home/nicoloxtrinca/dataset.zip --resolution=512x512
-
-python train.py --data=/home/ntrinca/dataset.zip --outdir=/home/ntrinca/training-runs --cfg=stylegan3-t --gpus=1 --batch=32 --gamma=8 --batch-gpu=8 --snap=10 --mirror=1 --workers=1 --metrics=none
+python train.py --data=/home/nicoloxtrinca/dataset512.zip --outdir=/home/nicoloxtrinca/training-runs --cfg=stylegan3-t --gpus=1 --batch=32 --gamma=8 --batch-gpu=8 --snap=10 --mirror=1 --workers=1 --metrics=none
 
 #------------- Mist
 
@@ -24,3 +24,6 @@ python gen_video.py --output=lerp.mp4 --trunc=1 --seeds=0-31 --grid=4x2 \
 bash download.sh afhq-dataset
 wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=FILEID' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=FILEID" -O FILENAME && rm -rf /tmp/cookies.txt
 
+Launch script as normal. while running, hit Ctrl-Z to suspend the process, 
+and then run bg to background the process. Now you can run disown, and the process will no longer 
+be a child of your shell (meaning you're safe to close it).
