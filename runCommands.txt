@@ -6,17 +6,18 @@ python dataset_tool.py --source /home/nicoloxtrinca/converted_img --dest /home/n
 
 python train.py --data=/home/nicoloxtrinca/dataset128.zip --outdir=/home/nicoloxtrinca/training-runs --cfg=stylegan2 --gpus=1 --batch=32 --gamma=0.1024 --map-depth=2 --glr=0.0025 --dlr=0.0025 --cbase=16384 --workers=2
 
+
 #------------ 256x256 Train process
 
 python dataset_tool.py --source /home/nicoloxtrinca/clean_replay --dest /home/nicoloxtrinca/dataset256.zip --resolution=256x256
 
 python train.py --data=/home/nicoloxtrinca/dataset256.zip --outdir=/home/nicoloxtrinca/training-runs --cfg=stylegan2 --gpus=1 --batch=16 --gamma=0.8192 --map-depth=2 --glr=0.0025 --dlr=0.0025 --cbase=16384
 
-#------------ 512x512 Train process
+#------------ Metrics
 
-python dataset_tool.py --source /home/nicoloxtrinca/converted_img/ --dest /home/nicoloxtrinca/dataset512.zip --resolution=512x512
+python calc_metrics.py --metrics=fid50k_full --workers=1 --data=/home/nicoloxtrinca/dataset128.zip --network=/home/nicoloxtrinca/training-runs/00000-stylegan2-dataset128-gpus1-batch32-gamma0.1024/network-snapshot-012000.pkl 
 
-python train.py --data=/home/nicoloxtrinca/dataset512.zip --outdir=/home/nicoloxtrinca/training-runs --cfg=stylegan3-t --gpus=1 --batch=32 --gamma=8 --batch-gpu=8 --snap=10 --mirror=1 --workers=1 --metrics=none
+python avg_spectra.py calc --source=/home/nicoloxtrinca/training-runs/00000-stylegan2-dataset128-gpus1-batch32-gamma0.1024/network-snapshot-012000.pkl --dest=/home/nicoloxtrinca/training-run --mean=112.684 --std=69.509 --num=70000
 
 #------------- Mist
 
@@ -28,3 +29,4 @@ bash download.sh afhq-dataset
 wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=FILEID' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=FILEID" -O FILENAME && rm -rf /tmp/cookies.txt
 
 Screen ctrl A ctrl D
+
