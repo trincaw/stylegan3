@@ -17,16 +17,25 @@ python train.py --data=/home/nicoloxtrinca/dataset256.zip --outdir=/home/nicolox
 
 python calc_metrics.py --metrics=fid50k_full --workers=1 --data=/home/nicoloxtrinca/dataset128.zip --network=/home/nicoloxtrinca/training-runs/00000-stylegan2-dataset128-gpus1-batch32-gamma0.1024/network-snapshot-012000.pkl 
 
-python avg_spectra.py calc --source=/home/nicoloxtrinca/training-runs/00000-stylegan2-dataset128-gpus1-batch32-gamma0.1024/network-snapshot-012000.pkl --dest=/home/nicoloxtrinca/training-run --mean=112.684 --std=69.509 --num=70000
+python avg_spectra.py calc --source=/home/nicoloxtrinca/dataset128.zip --dest=/home/nicoloxtrinca/training-data.npz --mean=112.684 --std=69.509
+
+# Calculate dataset mean and std, needed in subsequent steps.
+python avg_spectra.py stats --source=/home/nicoloxtrinca/dataset128.zip
+
+# Display results.
+
+python avg_spectra.py heatmap C:\\Users\\nico\\Desktop\\125x125_frist\\training-generator.npz
+python avg_spectra.py slices C:\\Users\\nico\\Desktop\\125x125_frist\\training-data.npz C:\\Users\\nico\\Desktop\\125x125_frist\\training-generator.npz
 
 #------------- Mist
+
 
 python gen_images.py --outdir=out --trunc=1 --seeds=211201 --network=C:\Users\nico\Desktop\stylegan3\stylegan3-r-afhqv2-512x512.pkl
 
 python gen_video.py --output=lerp.mp4 --trunc=1 --seeds=0-31 --grid=4x2 --network=C:\Users\nico\Desktop\stylegan3\stylegan3-r-afhqv2-512x512.pkl
 
 bash download.sh afhq-dataset
-wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=FILEID' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=FILEID" -O FILENAME && rm -rf /tmp/cookies.txt
+wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=FILEID' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=FILEID" -O clean_replay.7z && rm -rf /tmp/cookies.txt
 
 Screen ctrl A ctrl D
 
